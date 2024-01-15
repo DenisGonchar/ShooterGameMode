@@ -3,15 +3,31 @@
 #include "ShooterGameModeGameMode.h"
 #include "ShooterGameModeHUD.h"
 #include "ShooterGameModeCharacter.h"
+#include "Game/SGMGameState.h"
 #include "UObject/ConstructorHelpers.h"
 
 AShooterGameModeGameMode::AShooterGameModeGameMode()
 	: Super()
 {
-	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/FirstPersonCPP/Blueprints/FirstPersonCharacter"));
-	DefaultPawnClass = PlayerPawnClassFinder.Class;
-
-	// use our custom HUD class
+	
 	HUDClass = AShooterGameModeHUD::StaticClass();
+}
+
+void AShooterGameModeGameMode::OnPlayerDeath(AController* InController)
+{
+	
+}
+
+void AShooterGameModeGameMode::EndGame()
+{
+	for (auto it = GetWorld()->GetPlayerControllerIterator(); it; ++it)
+    {
+    	it->Get()->DisableInput(it->Get());
+    }
+
+	if (const auto gameState = GetGameState<ASGMGameState>())
+	{
+		gameState->NotifyEndGame();
+	}
+	
 }

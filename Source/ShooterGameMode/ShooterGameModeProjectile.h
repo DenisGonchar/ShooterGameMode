@@ -14,14 +14,6 @@ class AShooterGameModeProjectile : public AActor
 {
 	GENERATED_BODY()
 
-	/** Sphere collision component */
-	UPROPERTY(VisibleDefaultsOnly, Category=Projectile)
-	USphereComponent* CollisionComp;
-
-	/** Projectile movement component */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
-	UProjectileMovementComponent* ProjectileMovement;
-
 public:
 	AShooterGameModeProjectile();
 
@@ -33,5 +25,19 @@ public:
 	USphereComponent* GetCollisionComp() const { return CollisionComp; }
 	/** Returns ProjectileMovement subobject **/
 	UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
+
+protected:
+
+	UPROPERTY(EditDefaultsOnly)
+	float Damage = 20.f;
+	
+	/** Sphere collision component */
+	UPROPERTY(VisibleDefaultsOnly, Category=Projectile)
+	USphereComponent* CollisionComp;
+
+	/** Projectile movement component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
+	UProjectileMovementComponent* ProjectileMovement;
+
 };
 

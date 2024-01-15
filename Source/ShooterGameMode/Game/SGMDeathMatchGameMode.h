@@ -11,4 +11,8 @@ UCLASS()
 class SHOOTERGAMEMODE_API ASGMDeathMatchGameMode : public AShooterGameModeGameMode
 {
 	GENERATED_BODY()
+public:
+	virtual void OnPlayerDeath(AController* InController) override;
+
+	
 };
